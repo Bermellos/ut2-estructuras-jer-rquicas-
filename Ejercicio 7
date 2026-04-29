@@ -1,0 +1,83 @@
+Se requiere desarrollar un algoritmo capaz de trabajar con un árbol binario que representa expresiones aritméticas. 
+
+Los nodos internos contienen operadores (+,-,*,/) y las hojas contienen constantes o variables.
+El objetivo es, sustituirlas dentro del árbol, evaluar la expresión resultante y emitir el resultado final.
+
+
+Precondiciones:
+
+Se asume que el árbol binario de expresión ya está construido correctamente.
+Las operaciones presentes son únicamente binarias.
+Todas las variables deben tener un valor asignado.
+No se permite división entre cero.
+
+Postcondiciones:
+
+Las variables del árbol son reemplazadas por constantes numéricas.
+La expresión completa es evaluada correctamente.
+Se obtiene y muestra el resultado final.
+
+Pseudocódigo:
+
+clase arbolExpresion
+
+    definir raiz como nodo
+
+    procedimiento sustituirVariables(nodo, tablaValores)
+
+        si nodo = null entonces
+            retornar
+        fin si
+
+        si nodo.tipo = "VARIABLE" entonces
+            si existe nodo.valor en tablaValores entonces
+                nodo.tipo ← "CONSTANTE"
+                nodo.valor ← tablaValores[nodo.valor]
+            sino
+                error "Variable sin valor asignado"
+            fin si
+        fin si
+
+        sustituirVariables(nodo.izquierdo, tablaValores)
+        sustituirVariables(nodo.derecho, tablaValores)
+
+    fin procedimiento
+
+
+    función evaluar(nodo) devuelve real
+
+        si nodo.tipo = "CONSTANTE" entonces
+            retornar nodo.valor
+        fin si
+
+        definir izq ← evaluar(nodo.izquierdo)
+        definir der ← evaluar(nodo.derecho)
+
+        según nodo.valor hacer
+            caso "+":
+                retornar izq + der
+            caso "-":
+                retornar izq - der
+            caso "*":
+                retornar izq * der
+            caso "/":
+                si der = 0 entonces
+                    error "División por cero"
+                fin si
+                retornar izq / der
+        fin según
+
+    fin función
+
+
+    procedimiento resolver(tablaValores)
+
+        sustituirVariables(raiz, tablaValores)
+
+        definir resultado ← evaluar(raiz)
+
+        mostrar resultado
+
+    fin procedimiento
+
+fin clase
