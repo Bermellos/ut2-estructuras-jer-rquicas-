@@ -1,0 +1,55 @@
+Se pide generar un sistema de registro para controlar naves espaciales. Para este sistema se utilizará una estructura de datos jerárquica balanceada, AVL. Las naves cuentan con 3 tipos de características: código, clase y cantidad de combustible. Para almacenarlas en el sistema se estará tomando en cuenta el código como comparador. A su vez, se estará calculando el valor promedio del combustible de las naves con la clase "Explorador".
+
+Precondiciones:
+
+- Se asume que el árbol inicialmente está vacío
+- Por el tipo de estructura a utilizar no se admiten duplicados
+
+
+Postcondiciones:
+
+- Árbol AVL balanceado con todos los datos ingresados.
+- Se obtiene el valor promedio del combustible de las naves de clase "Explorador"
+
+Pseudocódigo:
+
+clase registroNave
+
+    definir registro como árbol avl de nave
+    definir explorador como lista de nave
+
+    procedimiento inicializar()
+        registro ← nuevo árbol avl
+        explorador ← nueva lista
+    fin procedimiento
+
+
+    procedimiento agregarnave(codigo, clase, combustible)
+        definir nave
+        nave ← nueva nave(codigo, clase, combustible)
+        insertar nave en registro
+    fin procedimiento
+
+
+    procedimiento buscarnaveexplorador()
+        recorrer registro en inorder haciendo
+            si nave.clase = "explorador" entonces
+                agregar nave a explorador
+                mostrar nave.codigo, nave.clase, nave.combustible
+            fin si
+        fin recorrido
+    fin procedimiento
+
+
+    función calculocombustible() devuelve entero
+        definir total ← 0
+        definir divisor ← tamaño de explorador
+
+        recorrer explorador haciendo
+            total ← total + nave.combustible
+        fin recorrido
+
+        retornar total / divisor
+    fin función
+fin clase
+
